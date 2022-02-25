@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block main %}
+<div class="card o-hidden border-0 shadow-lg my-5">
+    <div class="card-body p-0">
+        <!-- Nested Row within Card Body -->
+        <div class="row">
+            <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+            <div class="col-lg-7">
+                <div class="p-5">
+                    <div class="text-center">
+                        <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                    </div>
+                    <form class="user" action="/signup" method="POST" name="form" id="form_sign_up"
+                        data-toggle="validator" role="form">
+                        <div class="form-group">
+                            <input type="name" class="form-control form-control-user" name="name" id="exampleInputName"
+                                placeholder="Enter your name.. ">
+                            <div class="help-block with-errors text-danger text-sm mt-2"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="phone" class="form-control form-control-user" name="phone"
+                                id="exampleInputphone" placeholder="Enter your phone number.. ">
+                            <div class="help-block with-errors text-danger text-sm mt-2"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control form-control-user" name="email"
+                                id="exampleInputEmail" placeholder="Enter your email address.. ">
+                            <div class="help-block with-errors text-danger text-sm mt-2"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control form-control-user" name="password"
+                                id="exampleInputPassword" placeholder="Enter your password.. ">
+                            <div class="help-block with-errors text-danger text-sm mt-2"></div>
+                        </div>
+                        <button type="button" id="signup_btn" class="btn btn-primary btn-user btn-block">Tạo tài khoản
+                        </button>
+                    </form>
+                    <hr>
+                    <div class="text-center">
+                        <a class="small" href="signin">Already have an account? Login!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    $(document).ready(function () {
+
+        $("#signup_btn").click(function () {
+            if ($("#form_sign_up").validator('validate').has('.has-error').length == 0) {
+                $.ajax({
+                    url: "/signup",
+                    type: "POST",
+                    data: $("#form_sign_up").serialize(),
+                    success: function (data) {
+                        var json = $.parseJSON(data);
+                        var result = json.result;
+
+                        if (result.toString() == 'false') {
+                            var error = json.error;
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: error,
+                            })
+
+                        } else {
+                            location.href = '/signin';
+                        }
+                    },
+                    error: function (error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Có lỗi xảy ra, vui lòng thử lại!',
+                        })
+                    }
+                });
+            }
+        });
+    });
+</script>
+{% endblock %}

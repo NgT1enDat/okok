@@ -1,0 +1,38 @@
+.pagination{
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 0;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 15px;
+  text-align: center
+}
+
+.pagination li {
+  display: inline-block;
+  margin-left: -1px
+}
+
+.pagination li > a{
+  display: block;
+  height: 2.1875rem;
+  padding: 0 16px;
+  border: 1px solid #e6eaee;
+  background-color: #fff;
+  color: rgba(53,64,82,.5);
+  font-size: 14px;
+  line-height: 2.1875rem;
+  text-align: center;
+}
+
+.pagination li.active{
+  color: #354052;
+}
+
+.pagination li > a:active{
+  color: #354052;
+}

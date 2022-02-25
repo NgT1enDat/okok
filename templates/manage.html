@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block main %}
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Danh sách đăng ký</h1>
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th scope="col">Email</th>
+                            <th scope="col">Số điện thoại</th>
+                            <th scope="col">Giới tính</th>
+                            <th scope="col">Năm sinh</th>
+                            <th scope="col">Quê quán</th>
+                            <th scope="col">Sửa</th>
+                            <th scope="col">Xóa</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for i in register_list %}
+                        <tr>
+                            <td>{{i.email}}</td>
+                            <td>{{i.phone}}</td>
+                            <td>{{i.gender}}</td>
+                            <td>{{i.dob}}</td>
+                            <td>{{i.address}}</td>
+                            <td>
+                                <li class="list-inline-item">
+                                    <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip"
+                                        data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
+                                </li>
+                            </td>
+                            <td>
+                                <li class="list-inline-item">
+                                    <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip"
+                                        data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
+                                </li>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer pagination justify-content-center">
+            {% if pagination %}
+            {{ pagination.links }}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

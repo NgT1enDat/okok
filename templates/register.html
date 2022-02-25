@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Colorlib Templates">
+    <meta name="author" content="Colorlib">
+    <meta name="keywords" content="Colorlib Templates">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
+        rel="stylesheet">
+    <link href="/static/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="/static/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="/static/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="/static/vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+    <link href="/static/css/form_main.css" rel="stylesheet" media="all">
+    <link rel="icon" href="/static/img/logo_its-1024x679.jpg" sizes="16x16">
+    <title>Inter ITS | Cái gì cũng đỉnh kao</title>
+</head>
+
+<body>
+    <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
+        <div class="wrapper wrapper--w790">
+            <div class="card card-5">
+                <div class="card-heading">
+                    <h2 class="title">Form bài gửi Tùng ka<br>
+                        Davit Đạt</h2>
+                </div>
+                <div class="card-body">
+                    <form id="form_register">
+                        <div class="form-row">
+                            <div class="name">Email</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <input class="input--style-5" type="email" name="email">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="name">Số điện thoại</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <input class="input--style-5" type="number" name="phone">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <label class="label label--block">Giới Tính</label>
+                            <div class="p-t-15">
+                                <label class="radio-container m-r-55">Nam
+                                    <input type="radio" name="gender" value="male" checked>
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="radio-container">Nữ
+                                    <input type="radio" name="gender" value="female">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="name">Năm sinh</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <input class="input--style-5" type="number" name="dob">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="name">Quê quán</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <div class="rs-select2 js-select-simple select--no-search">
+                                        <select name="address">
+                                            {%for province in provinces %}
+                                            <option value="{{province}}">{{province}}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <div class="select-dropdown"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div>
+                        <button class="btn btn--radius-2 btn--blue justify-content-center" id="register">đăng ký</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/vendor/form_jquery/form_jquery.min.js"></script>
+    <script src="/static/vendor/select2/select2.min.js"></script>
+    <script src="/static/vendor/datepicker/moment.min.js"></script>
+    <script src="/static/vendor/datepicker/daterangepicker.js"></script>
+    <script src="/static/js/form_global.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+            $('#register').click(function () {
+                $.ajax({
+                    url: "/register",
+                    type: "POST",
+                    data: $("#form_register").serialize(),
+                    success: function (_data) {
+                        var r_data = JSON.parse(_data);
+                        if (r_data.code == 200) {
+                            Swal.fire({
+                                title: 'Thành công',
+                                html: r_data.msg,
+                                icon: 'success'
+                            }
+                            ).then((result) => {
+                                location.reload();
+                            });
+                        } else {
+                            var msg = r_data.msg;
+                            Swal.fire(
+                                'Thất bại',
+                                msg,
+                                'error'
+                            )
+                        }
+                    }
+                });
+            })
+        })
+    </script>
+</body>
+
+</html>
+<!-- end document-->
