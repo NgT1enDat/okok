@@ -16,7 +16,7 @@
                                 data-toggle="validator" role="form">
                                 <div class="form-group">
                                     <input type="email" class="form-control form-control-user" id="exampleInputEmail"
-                                        name="email" aria-describedby="emailHelp" placeholder="name@example.com">
+                                        name="email" aria-describedby="emailHelp" placeholder="name@example.com" autofocus="required">
                                     <div class="help-block with-errors text-danger text-sm mt-2"></div>
                                 </div>
                                 <div class="form-group">
@@ -69,7 +69,7 @@
                                 })
 
                             } else {
-                                location.href = 'manage';
+                                location.href = 'register';
                             }
                         },
                         error: function (error) {

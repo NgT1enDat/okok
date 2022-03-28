@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from tasks import celery
 from model import User
-from flask_login import LoginManager, login_user
+from flask_login import LoginManager, login_user, login_required, current_user
 from flask import (
     Flask,
     g,
@@ -72,7 +72,7 @@ def load_user(userid):
 
 @login_manager.unauthorized_handler
 def unauthorized_callback():
-    return redirect('/sign_in')
+    return redirect('/signin')
 
 
 @app.route('/')
@@ -144,6 +144,7 @@ def sign_up():
 
 
 @app.route('/register', methods=['GET', 'POST'])
+@login_required
 def register():
     if request.method == 'POST':
         email = request.form.get("email")
@@ -174,6 +175,7 @@ def register():
 
 
 @app.route('/manage', methods=['GET', 'POST'])
+@login_required
 def manage():
     filter = {
 
